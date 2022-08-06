@@ -11,8 +11,48 @@ namespace LinqExercise
 
         static void Main(string[] args)
         {
+            var sum = numbers.Sum();
+            var average = numbers.Average();
+            Console.WriteLine($"Sum is {sum} and average is  {average}");
+            var asc = numbers.OrderBy(num => num);
+            foreach (var item in asc)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("----");
+            Console.WriteLine("Asc");
+            var dsc = numbers.OrderByDescending(num => num);
+
+            Console.WriteLine("----");
+            foreach (var item in dsc)
+            {
+                Console.WriteLine(item);
+            }
+
+            var greaterthsix = numbers.Where(num => num > 6);
+            Console.WriteLine("----");
+            foreach (var number in greaterthsix)
+            {
+
+                Console.WriteLine(number);
+            }
+
+            Console.WriteLine("----");
+
+            foreach (var num in asc.Take(4))
+            {
+                Console.WriteLine(num);
+            }
+
+            Console.WriteLine("----");
+            numbers[4] = 32; 
+            foreach (var item in numbers.OrderByDescending(num =>num))
+                {
+                Console.WriteLine(item);
+            }
+
             /*
-             * 
+          
              * Complete every task using Method OR Query syntax. 
              * You may find that Method syntax is easier to use since it is most like C#
              * Every one of these can be completed using Linq and then printing with a foreach loop.
@@ -20,17 +60,17 @@ namespace LinqExercise
              * 
              */
 
-            //TODO: Print the Sum of numbers
+            //TODO: Print the Sum of numbers ok
 
-            //TODO: Print the Average of numbers
+            //TODO: Print the Average of numbers ok
 
-            //TODO: Order numbers in ascending order and print to the console
+            //TODO: Order numbers in ascending order and print to the console ok
 
-            //TODO: Order numbers in decsending order adn print to the console
+            //TODO: Order numbers in decsending order adn print to the console ok
 
-            //TODO: Print to the console only the numbers greater than 6
+            //TODO: Print to the console only the numbers greater than 6 ok
 
-            //TODO: Order numbers in any order (acsending or desc) but only print 4 of them **foreach loop only!**
+            //TODO: Order numbers in any order (acsending or desc) but only print 4 of them **foreach loop only!** ok
 
             //TODO: Change the value at index 4 to your age, then print the numbers in decsending order
 
@@ -45,11 +85,34 @@ namespace LinqExercise
 
             //TODO: Add an employee to the end of the list without using employees.Add()
 
+            var filter = employees.Where(person => person.FirstName.ToLower().StartsWith('c'));
+            Console.WriteLine("----");
+           
+            foreach (var person in filter)
+            {
+                Console.WriteLine(person.FullName);
+            }
 
-            Console.WriteLine();
+            var twentysix = employees.Where(x => x.Age < 26 ).OrderByDescending(x => x.Age).ThenBy(x=> x.FirstName) ;
+            Console.WriteLine("------");
+            foreach (var item in twentysix)
+            {
+                Console.WriteLine($"Name: {item.FullName}, Age: {item.Age}");
+            }
+            var sumandYOA = employees.Where(x => x.YearsOfExperience <= 10 && x.Age > 35);
+            Console.WriteLine("------");
+            Console.WriteLine($"Total YOE:{sumandYOA.Sum(x => x.YearsOfExperience)}");
+            Console.WriteLine($"Avg YOE:{sumandYOA.Average(x => x.YearsOfExperience)}");
 
+            employees = employees.Append(new Employee("First", "Last", 30, 10)).ToList();
+            Console.WriteLine("-----");
+            foreach (var item in employees)
+            {
+                Console.WriteLine(item.FullName);
+            }
             Console.ReadLine();
         }
+
 
         #region CreateEmployeesMethod
         private static List<Employee> CreateEmployees()
