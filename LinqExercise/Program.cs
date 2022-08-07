@@ -45,7 +45,7 @@ namespace LinqExercise
             }
 
             Console.WriteLine("----");
-            numbers[4] = 32; 
+            numbers[4] = 24; 
             foreach (var item in numbers.OrderByDescending(num =>num))
                 {
                 Console.WriteLine(item);
